@@ -1,4 +1,76 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -W1
 # This is free and unencumbered software released into the public domain.
 
 require_relative '../lib/gitstamp'
+
+require 'arweave'  # https://rubygems.org/gems/arweave
+require 'rugged'   # https://rubygems.org/gems/rugged
+require 'thor'     # https://rubygems.org/gems/thor
+
+require 'json'
+
+class CLI < Thor
+  def self.exit_on_failure?() true end
+
+  class_option :debug, aliases: '-d', type: :boolean, desc: "Enable debugging"
+  class_option :verbose, aliases: '-v', type: :boolean, desc: "Be verbose (print warnings)"
+  class_option :quiet, aliases: '-q', type: :boolean, desc: "Be quiet (silence non-fatal errors)"
+  class_option :wallet, aliases: '-W', banner: 'FILE', desc: "Specify Arweave wallet FILE (in JWK format)"
+
+  desc "publish COMMIT...", "Publish commits to Gitstamp"
+  option :author, banner: 'URI', desc: "Override author URI (mailto: or https://)"
+  option :committer, banner: 'URI', desc: "Override committer URI (mailto: or https://)"
+  option :link, banner: 'URL', desc: "Include commit link URL (https://)"
+  def publish(*commits)
+    wallet = self.wallet
+    author, committer, link = self.options[:author], self.options[:committer], self.options[:link]
+    git = Rugged::Repository.new('.')
+    commits = commits.empty? ? [git.head.target] : commits.map { |sha1| git.lookup(sha1) }
+    commits.each do |commit|
+      commit = Gitstamp::Commit.from_git(commit, author: author, committer: committer, link: link)
+      warn commit.to_tags.inspect if debug?
+      transaction_id = Gitstamp::Transaction.new(commit).publish!(wallet)
+      puts "#{set_color(transaction_id, :green)}" unless quiet?
+    end
+  rescue => error
+    raise error if debug?
+    warn "#{$0}: #{set_color(error, :red)}"
+    exit error.respond_to?(:exit_code) ? error.exit_code : -1
+  end
+
+  protected
+
+  def wallet
+    @wallet ||= begin
+      wallet_path = self.options[:wallet]
+      raise "wallet path required" if wallet_path.nil?
+      raise "#{wallet_path}: wallet file not found" if !File.exist?(wallet_path)
+      begin
+        Arweave::Wallet.new(JSON.parse(File.read(wallet_path)))
+      rescue JSON::ParserError => error
+        raise "#{wallet_path}: #{error}"
+      end
+    end
+  end
+
+  def debug?() self.options[:debug] end
+  def verbose?() self.options[:verbose] || self.debug? end
+  def quiet?() self.options[:quiet] end
+end # CLI
+
+# Fix for https://github.com/erikhuda/thor/issues/398
+class Thor::Shell::Basic
+  def print_wrapped(message, options = {})
+    indent = (options[:indent] || 0).to_i
+    if indent.zero?
+      self.stdout.puts message
+    else
+      message.each_line do |message_line|
+        self.stdout.print ' ' * indent
+        self.stdout.puts message_line.chomp
+      end
+    end
+  end
+end # Thor::Shell::Basic
+
+CLI.start(ARGV)

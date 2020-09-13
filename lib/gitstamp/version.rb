@@ -4,7 +4,7 @@ module Gitstamp
   module VERSION
     FILE = File.expand_path('../../VERSION', __dir__).freeze
     STRING = File.read(FILE).chomp.freeze
-    MAJOR, MINOR, TINY, EXTRA = STRING.split('.').map(&:to_i).freeze
+    MAJOR, MINOR, PATCH, EXTRA = STRING.split('.').map(&:to_i).freeze
 
     ##
     # @return [String]
@@ -16,6 +16,6 @@ module Gitstamp
 
     ##
     # @return [Array(Integer, Integer, Integer)]
-    def self.to_a() [MAJOR, MINOR, TINY].freeze end
+    def self.to_a() [MAJOR, MINOR, PATCH].freeze end
   end # VERSION
 end # Gitstamp
