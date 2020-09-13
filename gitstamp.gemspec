@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
     'bug_tracker_uri'   => 'https://github.com/artob/gitstamp-cli/issues',
     'changelog_uri'     => 'https://github.com/artob/gitstamp-cli/blob/master/CHANGES.md',
     'documentation_uri' => 'https://www.rubydoc.info/github/artob/gitstamp-cli/master',
-    'homepage_uri'      => gem.homepage,
+    'homepage_uri'      => 'https://gitstamp.dev',
     'source_code_uri'   => 'https://github.com/artob/gitstamp-cli',
   }
 
@@ -33,5 +33,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake',      '>= 13'
   gem.add_development_dependency 'rspec',     '>= 3.9'
   gem.add_development_dependency 'yard' ,     '>= 0.9'
+  gem.add_runtime_dependency     'arweave',   '~> 1.1'
+  gem.add_runtime_dependency     'rugged',    '~> 1.0'
+  gem.add_runtime_dependency     'thor',      '~> 1.0'
   gem.post_install_message       = nil
 end
