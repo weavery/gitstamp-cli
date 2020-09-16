@@ -21,6 +21,14 @@ In case the command wasn't found after installation, you likely need to
 configure your `PATH` environment variable to include your [RubyGems] program
 path.
 
-[Ruby]:      https://www.ruby-lang.org/en/
-[RubyGems]:  https://guides.rubygems.org/faqs/
-[Unlicense]: https://unlicense.org
+## See Also
+
+This repository is mirrored on [GitHub], [GitLab], and [Bitbucket].
+
+[Ruby]:           https://www.ruby-lang.org/en/
+[RubyGems]:       https://guides.rubygems.org/faqs/
+[Arweave]:        https://www.arweave.org
+[Arweave wallet]: https://www.arweave.org/wallet
+[GitHub]:         https://github.com/weavery/gitstamp-cli
+[GitLab]:         https://gitlab.com/weavery/gitstamp-cli
+[Bitbucket]:      https://bitbucket.org/weavery/gitstamp-cli

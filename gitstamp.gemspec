@@ -3,7 +3,7 @@ Gem::Specification.new do |gem|
   gem.date               = File.mtime('VERSION').strftime('%Y-%m-%d')
 
   gem.name               = 'gitstamp'
-  gem.homepage           = 'https://github.com/artob/gitstamp-cli'
+  gem.homepage           = 'https://gitstamp.dev'
   gem.license            = 'Unlicense'
   gem.summary            = 'Gitstamp Command-Line Interface (CLI)'
   gem.description        = gem.summary
@@ -12,11 +12,11 @@ Gem::Specification.new do |gem|
   gem.email              = 'arto@bendiken.net'
 
   gem.metadata = {
-    'bug_tracker_uri'   => 'https://github.com/artob/gitstamp-cli/issues',
-    'changelog_uri'     => 'https://github.com/artob/gitstamp-cli/blob/master/CHANGES.md',
-    'documentation_uri' => 'https://www.rubydoc.info/github/artob/gitstamp-cli/master',
+    'bug_tracker_uri'   => 'https://github.com/weavery/gitstamp-cli/issues',
+    'changelog_uri'     => 'https://github.com/weavery/gitstamp-cli/blob/master/CHANGES.md',
+    'documentation_uri' => 'https://www.rubydoc.info/github/weavery/gitstamp-cli/master',
     'homepage_uri'      => 'https://gitstamp.dev',
-    'source_code_uri'   => 'https://github.com/artob/gitstamp-cli',
+    'source_code_uri'   => 'https://github.com/weavery/gitstamp-cli',
   }
 
   gem.platform           = Gem::Platform::RUBY
