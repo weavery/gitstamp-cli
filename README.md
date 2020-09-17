@@ -3,6 +3,7 @@
 [![Project license](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
 [![Ruby compatibility](https://img.shields.io/badge/ruby-2.4%2B-blue)](https://rubygems.org/gems/gitstamp)
 [![RubyGems gem](https://img.shields.io/gem/v/gitstamp.svg)](https://rubygems.org/gems/gitstamp)
+[![Discord](https://img.shields.io/discord/755852964513579099?label=discord)](https://discord.gg/6meRQ27)
 
 ## Prerequisites
 
